@@ -1,0 +1,5 @@
+*.[oa]
+*~
+~*
+QtWeb/target/
+QtWeb/.idea/
