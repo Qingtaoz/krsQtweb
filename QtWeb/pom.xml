@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>WxOrder</groupId>
-    <artifactId>WxOrder</artifactId>
+    <groupId>QtWeb</groupId>
+    <artifactId>QtWeb</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>WxOrder</name>
+    <name>QtWeb</name>
     <!--统一配置jar包版本-->
     <properties>
         <springmvc-version>4.3.0.RELEASE</springmvc-version>
@@ -226,7 +226,7 @@
     <!--项目构建-->
     <build>
         <!--项目打包之后的名称-->
-        <finalName>WxOrder</finalName>
+        <finalName>QtWeb</finalName>
         <!--构建需要的插件-->
         <plugins>
             <!--编译插件-->
