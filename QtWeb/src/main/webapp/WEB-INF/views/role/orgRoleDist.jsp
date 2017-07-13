@@ -22,6 +22,7 @@
 <script type="text/javascript">
     layui.use(['form', 'layer', 'laydate'], function () {
         var $ = layui.jquery, form = layui.form(), layer = layui.layer, laydate = layui.laydate;
+        var s = 1;
     });
 </script>
 </body>
