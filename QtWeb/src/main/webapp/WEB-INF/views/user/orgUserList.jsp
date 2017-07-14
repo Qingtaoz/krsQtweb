@@ -9,7 +9,7 @@
     <title>用户列表</title>
     <link rel="stylesheet" href="/static/frame/layui/css/layui.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/frame/datatables/jquery.dataTables.min.css">
+    <%--<link rel="stylesheet" href="/static/frame/datatables/jquery.dataTables.min.css">--%>
 </head>
 <body class="body">
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -35,23 +35,32 @@
             <button id="btn_table_search" class="layui-btn mgl-20">查询</button>
         </span>
     </div>
-    <table class="layui-table dateTable">
-        <thead>
-        <tr>
-            <th><input type="checkbox" class="my-checkbox"/></th>
-            <th>用户名</th>
-            <th>昵称</th>
-            <th>电话</th>
-            <th>邮箱</th>
-            <th>性别</th>
-            <th>生日</th>
-            <th>真实姓名</th>
-            <th>省份</th>
-            <th>城市</th>
-            <th>地址</th>
-        </tr>
-        </thead>
-    </table>
+    <div class="layui-form">
+        <table class="layui-table dateTable">
+            <colgroup>
+                <col width="50">
+                <col width="150">
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th><input type="checkbox" lay-skin="primary"/></th>
+                <th>用户名</th>
+                <th>昵称</th>
+                <th>电话</th>
+                <th>邮箱</th>
+                <th>性别</th>
+                <th>生日</th>
+                <th>真实姓名</th>
+                <th>省份</th>
+                <th>城市</th>
+                <th>地址</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
 </div>
 <script type="text/javascript" src="/static/frame/layui/layui.js"></script>
 <script type="text/javascript" charset="utf8" src="/static/frame/jquery/jquery-1.10.2.min.js"></script>
