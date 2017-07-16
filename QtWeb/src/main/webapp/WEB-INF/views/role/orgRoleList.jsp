@@ -41,7 +41,13 @@
                 { Name: "张三", Sex: "1", Sex1: "1", Sex2: "1", Age: "15", Record: "测试" },
                 { Name: "李四", Sex: "1", Sex1: "1", Sex2: "1", Age: "18", Record: "测试" },
                 { Name: "王五", Sex: "1", Sex1: "1", Sex2: "1", Age: "26", Record: "测试" },
-                { Name: "韩梅梅", Sex: "0", Sex1: "1", Sex2: "1", Age: "16", Record: "测试" }
+                { Name: "韩梅梅", Sex: "0", Sex1: "1", Sex2: "1", Age: "16", Record: "测试" },
+                { Name: "张三", Sex: "1", Sex1: "1", Sex2: "1", Age: "15", Record: "测试" },
+                { Name: "李四", Sex: "1", Sex1: "1", Sex2: "1", Age: "18", Record: "测试" },
+                { Name: "王五", Sex: "1", Sex1: "1", Sex2: "1", Age: "26", Record: "测试" },
+                { Name: "韩梅梅", Sex: "0", Sex1: "1", Sex2: "1", Age: "16", Record: "测试" },
+                { Name: "张三", Sex: "1", Sex1: "1", Sex2: "1", Age: "15", Record: "测试" },
+                { Name: "李四", Sex: "1", Sex1: "1", Sex2: "1", Age: "18", Record: "测试" }
             ];
             table1.SumDateCounte = 100; //总数据的行数
             table1.data = Data;
