@@ -126,14 +126,66 @@ var layuiHelper = {
                 var width=0;
                 var colGroupHtml="";
                 var theadHtml="";
-
+                var ifContinue=true;
                 if(this.seqEnable){
                     width=50;
                     colGroupHtml="<col style='50'>";
                     theadHtml="<th>序号</th>";
                 }
                 var column=this.column;
-                var column
+                for(var i=0;i<column.length;i++){
+                    if (column[i].title==undefined){
+                        column[i].title="";
+                    }
+                    if(column[i].code==undefined||column[i].code==""){
+                        layerMsg.msg="第" + (i + 1) + "列的取值编码不能为空！";
+                        layerMsg.show();
+                        ifContinue=false;
+                        break;
+                    }
+                    if(column[i].visible!=undefined){
+                        if(column[i].visible==false){
+                            continue;
+                        }
+                    }
+                    if(column[i].edit!=undefined){
+                        if(this.edit==""){
+                            layerMsg.msg="您启用了编辑列，却没有设置编辑保存事件";
+                            layerMsg.show();
+                            ifContinue=false;
+                            break;
+                        }
+                    }
+                    var columnWidth=column[i].width==undefined?80:column[i].width;
+                    width+=columnWidth;
+                    colGroupHtml+="<col width='"+columnWidth+"'>";
+                    theadHtml+="<th style='"+(column[i].style==undefined?"":column[i].style)+"'>"+column[i].title+"</th>";
+                }
+                if(this.edit!=""||this.delete!=""){
+                    width+=120;
+                    colGroupHtml+="<col width='120'>";
+                    theadHtml+="<th></th>";
+                }
+                var tbodyHtml="";
+                if(this.data!=undefined&&this.data!=null&&ifContinue){
+                    if(this.data.length>0){
+                        for(var i=0;i<this.data.length;i++){
+                            tbodyHtml+="<tr id='"+tableID+"tr_"+i+"'>";
+                            if(this.seqEnable){
+                                tbodyHtml+="<td style='text-align:center;'>"+((parseFloat(this.pageIndex)-1)*this.pageSize+i+1)+"</td>";
+                            }
+                            for(var j=0;j<column.length;j++){
+                                if(column[j].visible!=undefined){
+                                    if(column[j]==false){
+                                        continue;
+                                    }
+                                }
+                                tbodyHtml+="<td style=\"cursor:pointer;word-break:normal|break-all|keep-all;"+(column[j].style==undefined?"":column[j].style)+"\">";
+                                // TODO 2017年7月17日23:22:49
+                            }
+                        }
+                    }
+                }
             }
         }
     },
