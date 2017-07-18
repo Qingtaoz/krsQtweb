@@ -70,7 +70,7 @@ var layuiHelper = {
 
     LayTable:function () {
         return{
-            tablePanel:"",
+            tablePanelID:"",
             tableSkin:"",
             seqEnable:true,
             rowColor:[{ color: "#F8F8F8"}],
@@ -99,7 +99,7 @@ var layuiHelper = {
             }],
             edit:"",
             editSetting:{
-                flag:1,//0：编辑，1：新增
+                type:1,//0：编辑，1：新增
                 splitChar:",",
                 size:{
                     width:300,
@@ -181,11 +181,102 @@ var layuiHelper = {
                                     }
                                 }
                                 tbodyHtml+="<td style=\"cursor:pointer;word-break:normal|break-all|keep-all;"+(column[j].style==undefined?"":column[j].style)+"\">";
-                                // TODO 2017年7月17日23:22:49
+                                var value="";
+                                if(column[j].valueDeal!=undefined){
+                                    value=column[j].valueDeal(this.data[i][column[j].code]);
+                                }else{
+                                    value=this.data[i][column[j].code];
+                                }
+                                tbodyHtml+=(value==null?"":value)+"</td>";
                             }
+                            if(this.edit!=""||this.delete!=""){
+                                tbodyHtml+="<td>";
+                                if(this.edit!=""){
+                                    tbodyHtml+="<button class='layui-btn layui-btn-normal layui-btn-mini' onclick='"+this.edit+"("+i+")'><i class='layui-icon'>&#xe642;</i></button>";
+                                }
+                                if(this.delete!=""){
+                                    tbodyHtml+="<button class='layui-btn layui-btn-normal layui-btn-mini' onclick='"+this.delete+"("+i+")'><i class='layui-icon'>&#xe640;</i></button>";
+                                }
+                                tbodyHtml+="</td>";
+                            }
+                            tbodyHtml+="</tr>";
                         }
                     }
                 }
+                if(this.laypage.pagePanelID==""){
+                    this.laypage.pagePanelID=new Date().getTime();
+                }
+                var html="<div style='width:"+(width<430?430:width)+"px;'>"
+                +"<table id='"+tableID+"' class='layui-table' lay-skin='"+this.tableSkin==""?"":this.tableSkin+"'> "
+                +"<colgroup" +colGroupHtml +"</colgroup>"
+                +"<thead><tr>"+theadHtml+"</tr></thead>"
+                +"<tbody>"+tbodyHtml+"</tbody>"
+                +"</table>"
+                +"<div id='"+this.laypage.pagePanelID+"'></div></div>";
+                if(ifContinue){
+                    $("#"+this.tablePanelID).html(html);
+                    if(this.dataCount>0){
+                        this.laypage.pageIndex=this.pageIndex;
+                        this.laypage.pages=this.pageSize;
+                        this.laypage.dataCount=this.dataCount;
+                        this.laypage.selectDataByPageIndex=this.selectDataByPageIndex;
+                        this.laypage.createPage();
+                    }
+                }
+                if(this.rowColor!=undefined){
+                    var rowColor=this.rowColor;
+                    $("#"+this.tablePanelID+" tbody tr").mouseleave(function () {
+                        $(this).css("background-color","#ffffff");
+                    });
+                    $("#"+this.tablePanelID+" tbody tr").mousemove(function () {
+                        var count=parseInt($(this).attr("id").split('_')[1])+1;
+                        var length=rowColor.length;
+                        var num=count-parseInt(count/length)*length;
+                        $(this).css("backgroud-color",rowColor[num].color);
+                    });
+                }
+            },
+            createEditMode:function () {
+                var type = 1;//编辑模式 0：编辑，1：新增
+                var dataIndex = 1;
+                var cb_OK = function () {
+
+                };
+                var size={
+                    width:400,
+                    height:0,
+                    nameWidth:120
+                }
+                if(this.editSetting.type!=undefined||this.editSetting.type!=null||this.editSetting.type!=""){
+                    type=this.editSetting.type;
+                }
+                if(this.editSetting.dataIndex!=undefined||this.editSetting.dataIndex!=null||this.editSetting.dataIndex!=""){
+                    dataIndex=this.editSetting.dataIndex;
+                }
+                if(this.editSetting.cb_OK!=undefined){
+                    cb_OK=this.editSetting.cb_OK;
+                }
+                if(this.editSetting.size!=undefined){
+                    if(this.editSetting.size.width!=undefined){
+                        size.width = this.editSetting.size.width;
+                    }
+                    if(this.editSetting.size.height!=undefined){
+                        size.height = this.editSetting.size.height;
+                    }
+                    if(this.editSetting.size.nameWidth!=undefined){
+                        size.nameWidth = this.editSetting.size.nameWidth;
+                    }
+                }
+                var editModeID = new Date().getTime();
+                var Column = this.column;
+                var json=[];
+                if(type==0){
+                    json=this.getRowData(dataIndex);
+                }
+                var maxValWidth=0;
+                var ifContinue=true;
+                var editModeHtml="<div id='editMode_"+editModeID+"' style='margin-bottom:15px;'>";
+
             }
         }
     },
