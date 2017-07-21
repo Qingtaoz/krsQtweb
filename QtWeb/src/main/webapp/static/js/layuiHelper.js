@@ -79,55 +79,88 @@ var layuiHelper = {
 
     LayTable: function () {
         return {
+            //layTable容器ID，一般用div做容器
             tablePanelID: "",
+            //layui 内置皮肤 line：定义行边框 风格表格 row：定义列边框 风格表格 nob：定义 无边框 风格表格
             tableSkin: "",
+            // 是否显示多选框
+            checkBoxEnable:false,
+            //是否显示表格序号
             seqEnable: true,
+            // 行变换颜色
             rowColor: [{color: "#F8F8F8"}],
+            // 列属性设置
             column: [{
+                // 显示标题
                 title: "",
+                // 编码
                 code: "",
+                // 行宽
                 width: 80,
+                // 列自定义style
                 style: "",
+                // 列是否可见
                 visible: true,
+                // 列编辑Mode属性
                 edit: {
+                    // 是否显示字段
                     show: true,
+                    // 编辑框宽度
                     width: 120,
-                    type: "txt",     //select,radio,checkbox
+                    // 编辑类型txt,select,radio,checkbox
+                    type: "txt",
+                    // 数据
                     data: [{
                         name: "",
                         value: ""
                     }],
-                    dataKey: {       //自定义数据集
+                    // 自定义数据集
+                    dataKey: {
                         nameKey: "",
                         valueKey: ""
                     }
                 },
+                // 自定义value处理方法
                 valueDeal: function (value) {
                     return value;
                 }
             }],
+            // 编辑方法
             edit: "",
+            // 编辑框设置
             editSetting: {
-                flag: 1,//0：编辑，1：新增
+                //0：编辑，1：新增
+                flag: 1,
+                // 数据分隔符
                 splitChar: ",",
+                // 尺寸
                 size: {
                     width: 300,
                     height: 400,
                     nameWidth: 120
                 },
+                // OK操作回调
                 cb_OK: undefined
             },
+            // 删除方法
             delete: "",
+            // 数据
             data: [],
+            // 分页索引
             pageIndex: 1,
+            // 分页每页数据条数
             pageSize: 10,
+            // 总数据条数
             dataCount: 0,
+            // 查询单页数据方法
             selectDataByPageIndex: function (index) {
 
             },
+            // 查找单行数据
             getRowData: function (index) {
                 return this.data[index];
             },
+            // 分页插件
             laypage: layuiHelper.LayPaging(),
             createTable: function () {
                 var tableID = "layuiTable" + layuiHelper.Common.getTimestamp();
@@ -137,8 +170,8 @@ var layuiHelper = {
                 var theadHtml = "";
                 var ifContinue = true;
                 if (this.seqEnable) {
-                    width = 80;
-                    colGroupHtml = "<col style='"+width+"'>";
+                    width = 60;
+                    colGroupHtml = "<col style='" + width + "'>";
                     theadHtml = "<th>序号</th>";
                 }
                 var column = this.column;
