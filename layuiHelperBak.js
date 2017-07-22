@@ -101,13 +101,54 @@ var layuiHelper = {
                 style: "",
                 // 列是否可见
                 visible: true,
+                // 列编辑Mode属性
+                edit: {
+                    // 是否显示字段
+                    show: true,
+                    // 编辑框宽度
+                    width: 120,
+                    // 编辑类型txt,select,radio,checkbox
+                    type: "txt",
+                    // 数据
+                    data: [{
+                        name: "",
+                        value: ""
+                    }],
+                    // 自定义数据集
+                    dataKey: {
+                        nameKey: "",
+                        valueKey: ""
+                    }
+                },
+                // 自定义value处理方法
                 valueDeal: function (value) {
                     return value;
                 }
             }],
             // 编辑方法
             edit: "",
+            // 编辑框设置
+            editSetting: {
+                //0：编辑，1：新增
+                flag: 1,
+                // 数据分隔符
+                splitChar: ",",
+                // 尺寸
+                size: {
+                    width: 300,
+                    height: 400,
+                    nameWidth: 120
+                },
+                // OK操作回调
+                cb_OK: undefined
+            },
+            // 删除方法
             delete: "",
+            opts:[{
+
+                icon:"",
+
+            }],
             // 数据
             data: [],
             // 分页索引
@@ -121,9 +162,9 @@ var layuiHelper = {
 
             },
             // 查找单行数据
-            // getRowData: function (index) {
-            //     return this.data[index];
-            // },
+            getRowData: function (index) {
+                return this.data[index];
+            },
             // 分页插件
             laypage: layuiHelper.LayPaging(),
             createTable: function () {
@@ -260,6 +301,197 @@ var layuiHelper = {
                     var form = layui.form();
                     form.render();
                 });
+            },
+            createEditMode: function () {
+                var flag = 1;//编辑模式 0：编辑，1：新增
+                var dataIndex = 1;
+                var layerMsg = layuiHelper.LayerMsg();
+                var cb_OK = function () {
+
+                };
+                var size = {
+                    width: 400,
+                    height: 0,
+                    nameWidth: 120
+                }
+                if (this.editSetting.flag != undefined || this.editSetting.flag != null || this.editSetting.flag != "") {
+                    flag = this.editSetting.flag;
+                }
+                if (this.editSetting.dataIndex != undefined || this.editSetting.dataIndex != null || this.editSetting.dataIndex != "") {
+                    dataIndex = this.editSetting.dataIndex;
+                }
+                if (this.editSetting.cb_OK != undefined) {
+                    cb_OK = this.editSetting.cb_OK;
+                }
+                if (this.editSetting.size != undefined) {
+                    if (this.editSetting.size.width != undefined) {
+                        size.width = this.editSetting.size.width;
+                    }
+                    if (this.editSetting.size.height != undefined) {
+                        size.height = this.editSetting.size.height;
+                    }
+                    if (this.editSetting.size.nameWidth != undefined) {
+                        size.nameWidth = this.editSetting.size.nameWidth;
+                    }
+                }
+                var editModeID = new Date().getTime();
+                var column = this.column;
+                var json = [];
+                if (flag == 0) {
+                    json = this.getRowData(dataIndex);
+                }
+                var maxValWidth = 0;
+                var ifContinue = true;
+                var editModeHtml = "<div id='editMode' style='margin-bottom:15px;'>";
+                for (var i = 0; i < column.length; i++) {
+                    if (column[i].edit != undefined) {
+                        var show = true;
+                        if (column[i].edit.show != undefined) {
+                            if (column[i].edit.show != false) {
+                                show = false;
+                            }
+                        }
+                        if (show) {
+                            var style = "width:120px";
+                            if (column[i].edit.width != undefined) {
+                                maxValWidth = column[i].edit.width > maxValWidth ? column[i].edit.width : maxValWidth;
+                                style = "width:" + column[i].edit.width + "px;";
+                            }
+                            var type = "txt";
+                            if (column[i].edit.type != undefined) {
+                                if (column[i].edit.type != "txt" && column[i].edit.type != "select" && column[i].edit.type != "radio" && column[i].edit.type != "checkbox") {
+                                    layerMsg.msg = "第" + (i + 1) + "列未能识别的编辑控件：" + column[i].edit.type;
+                                    layerMsg.show();
+                                    ifContinue = false;
+                                    break;
+                                }
+                            } else {
+                                type = column[i].edit.type;
+                            }
+                            editModeHtml += "<div class='layui-item' style='margin-top:15px; '>";
+                            editModeHtml += "<label class='layui-form-label' style='width:" + size.nameWidth + "px;padding:9px 0;'>" + column[i].title + "：</label>";
+                            if (type == "txt") {
+                                editModeHtml += "<input id='" + editModeID + column[i].code + "' type='text' class='layui-input' placeholder='请输入" + column[i].title + "' style='" + style + "'" + (flag == 0 ? "value='" + json[column[i].code] + "'" : "") + " />";
+                            } else if (type == "select" || type == "radio" || type == "checkbox") {
+                                if (column[i].edit.data == undefined) {
+                                    layerMsg.msg = "第" + (i + 1) + "列的编辑控件数据集错误！";
+                                    layerMsg.show();
+                                    ifContinue = false;
+                                    break;
+                                } else {
+                                    if (type == "select") {
+                                        editModeHtml += "<select id='" + editModeID + column[i].code + "' class='layui-input' style='" + style + "'>";
+                                    } else if (type = "radio" || type == "checkbox") {
+                                        editModeHtml += "<div class='layui-input-block layui-form' style='margin-left:" + (size.nameWidth + 5) + "px;" + style + "'>";
+                                    }
+                                    if (column[i].edit.data == undefined) {
+                                        layerMsg.msg = "第" + (i + 1) + "行的编辑控件数据集没有赋值！";
+                                        layerMsg.show();
+                                        ifContinue = false;
+                                        break;
+                                    }
+                                    for (var j = 0; j < column[i].edit.data.length; j++) {
+                                        var valueKey = "Value";
+                                        var nameKey = "Name";
+                                        if (column[i].edit.data[j] == undefined) {
+                                            continue;
+                                        }
+                                        if (column[i].edit.dataKey != undefined) {
+                                            valueKey = column[i].edit.dataKey.valueKey;
+                                            nameKey = column[i].edit.dataKey.nameKey;
+                                            if (valueKey == undefined || nameKey == undefined) {
+                                                layerMsg.msg = "第" + (i + 1) + "列的编辑控件下拉框的选项数据集自定义取值字段的设置不正确！";
+                                                layerMsg.show();
+                                                ifContinue = false;
+                                                break;
+                                            }
+                                        }
+                                        if (type == "select") {
+                                            editModeHtml += "<option value='" + column[i].edit.data[j][valueKey] + "' " + (flag == 0 ? (json[column[i].code] == column[i].edit.data[j][valueKey] ? "selected='selected'" : "") : "") + " >" + column[i].edit.data[j][nameKey] + "</option>";
+                                        } else if (type == "radio" || type == "checkbox") {
+                                            editModeHtml += "<input type='" + type + "' name='" + editModeID + column[i].code + "' value='" + column[i].edit.data[j][valueKey] + "' title='" + column[i].edit.data[j][nameKey] + "' " + (flag == 0 ? (json[column[i].code] == column[i].edit.data[j][valueKey] ? " checked " : "") : "") + " >";
+                                        }
+                                    }
+                                    if (type == "select") {
+                                        editModeHtml += "</select>";
+                                    } else if (type == "radio" || type == "checkbox") {
+                                        editModeHtml += "</div>";
+                                    }
+                                }
+                            }
+                            editModeHtml += "</div>";
+                        }
+                    }
+                }
+                editModeHtml += "</div>";
+                if (ifContinue) {
+                    var tips = flag == 0 ? "编辑" : "新增";
+                    var area = this.editSetting.size.width + "px";
+                    if (this.editSetting.size.height > 0) {
+                        area = [this.editSetting.size.width + "px", this.editSetting.size.height + "px"];
+                    }
+                    var splitChar = ",";
+                    if (this.editSetting.splitChar != undefined) {
+                        splitChar = this.editSetting.splitChar;
+                    }
+                    layer.open({
+                        offset: ['12%', '30%'],
+                        area: area,
+                        title: tips,
+                        type: 1,
+                        content: editModeHtml,
+                        btnAlign: 'c',
+                        btn: ['确认', '取消'],
+                        yes: function (index, layero) {
+                            var rtnJson = {};
+                            for (var i = 0; i < column.length; i++) {
+                                var thisValue = "";
+                                var type = "txt";
+                                if (column[i].edit != undefined) {
+                                    if (column[i].edit.type != undefined) {
+                                        type = column[i].edit.type;
+                                    }
+                                }
+                                if (type == "txt" || type == "select") {
+                                    thisValue = $("#" + editModeID + column[i].code).val();
+                                } else if (type == "radio" || type == "checkbox") {
+                                    var checkObj = $("input[name='" + editModeID + "']");
+                                    for (var j = 0; j < checkObj.length; j++) {
+                                        if (checkObj[j].checked) {
+                                            if (thisValue != "") {
+                                                thisValue += splitChar;
+                                                thisValue += $(checkObj[j].val());
+                                            }
+                                        }
+                                    }
+                                }
+                                if (thisValue != undefined) {
+                                    if (flag == 0) {
+                                        json[column[i].code] = thisValue;
+                                    }
+                                    rtnJson[column[i].code] = thisValue;
+                                }
+                            }
+                            if (cb_OK() != undefined) {
+                                if (flag == 0) {
+                                    cb_OK(json);
+                                } else {
+                                    cb_OK(rtnJson);
+                                }
+                            }
+                            layer.close(index);
+                        }, btn2: function (index, layero) {
+
+                        },
+                        end: function () {
+
+                        }
+                    });
+                    layui.use('form', function () {
+                        var form = layui.form();
+                        form.render();
+                    });
+                }
             }
         }
     },

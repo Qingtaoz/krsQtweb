@@ -15,7 +15,6 @@
     <legend>组织角色列表</legend>
 </fieldset>
 <blockquote class="layui-elem-quote">组织角色列表</blockquote>
-<button id="btnInit" class="layui-btn layui-btn-primary">ok</button>
 <div id="layTable1">
 
 </div>
@@ -59,7 +58,8 @@
             table1.tablePanelID = "layTable1";
             table1.edit = "Edit";
             table1.delete = "Delete";
-            table1.seqEnable = true;
+            table1.checkBoxEnable = true;
+            table1.seqEnable = false;
             table1.selectDataByPageIndex = SelectDataByPageIndex;
             table1.column = [
                 {title: "姓名", code: "Name", width: 80, edit: ""},
@@ -73,14 +73,15 @@
                         } else {
                             return "男";
                         }
-                    }, edit: {
-                    type: "select",
-                    data: [
-                        {Name2: "男", Value: 1},
-                        {Name2: "女", Value: 0},
-                    ],
-                    dataKey: {valueKey: "Value", nameKey: "Name2"}
-                }
+                    },
+                    edit: {
+                        type: "select",
+                        data: [
+                            {Name2: "男", Value: 1},
+                            {Name2: "女", Value: 0},
+                        ],
+                        dataKey: {valueKey: "Value", nameKey: "Name2"}
+                    }
                 },
                 {
                     title: "性别--单选按钮测试",
@@ -92,15 +93,16 @@
                         } else {
                             return "男";
                         }
-                    }, edit: {
-                    type: "radio",
-                    Width: 150,
-                    data: [
-                        {Name2: "男", Value: 1},
-                        {Name2: "女", Value: 0},
-                    ],
-                    dateKey: {valueKey: "Value", nameKey: "Name2"}
-                }
+                    },
+                    edit: {
+                        type: "radio",
+                        width: 150,
+                        data: [
+                            {Name2: "男", Value: 1},
+                            {Name2: "女", Value: 0},
+                        ],
+                        dateKey: {valueKey: "Value", nameKey: "Name2"}
+                    }
                 },
                 {
                     title: "性别--复选框测试",
@@ -112,28 +114,35 @@
                         } else {
                             return "男";
                         }
-                    }, edit: {
-                    type: "checkbox",
-                    Width: 200,
-                    data: [
-                        {Name2: "男", Value: 1},
-                        {Name2: "女", Value: 0},
-                    ],
-                    dateKey: {valueKey: "Value", nameKey: "Name2"}
-                }
+                    },
+                    edit: {
+                        type: "checkbox",
+                        Width: 200,
+                        data: [
+                            {Name2: "男", Value: 1},
+                            {Name2: "女", Value: 0},
+                        ],
+                        dateKey: {valueKey: "Value", nameKey: "Name2"}
+                    }
                 },
                 {title: "年龄", code: "Age", width: 80, edit: ""},
                 {title: "备注", code: "Record", width: 80}
             ];
         };
-        $("#btnInit").on('click', function () {
+        $(function () {
             tableInit();
             SelectDataByPageIndex(1);
         });
-//        $(function () {
-//            tableInit();
-//            SelectDataByPageIndex(1);
-//        })
+        if(table1.checkBoxEnable){
+            //全选
+            form.on('checkbox(allChoose)', function(data){
+                var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+                child.each(function(index, item){
+                    item.checked = data.elem.checked;
+                });
+                form.render('checkbox');
+            });
+        }
     });
 </script>
 </body>
