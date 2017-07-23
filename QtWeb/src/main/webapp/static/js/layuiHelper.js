@@ -107,7 +107,25 @@ var layuiHelper = {
             }],
             // 编辑方法
             edit: "",
+            // 删除方法
             delete: "",
+            // 是否开启服务器模式
+            serverMode:false,
+            // 服务器模式数据请求ajax
+            ajax:{
+                url:"",
+                contentType:"",
+                context:"",
+                data:"",
+                dataType:"",
+                success:function (data,status) {
+
+                },
+                error:function (request,status,errorThrow) {
+
+                },
+                type:"POST"
+            },
             // 数据
             data: [],
             // 分页索引
@@ -118,7 +136,7 @@ var layuiHelper = {
             dataCount: 0,
             // 查询单页数据方法
             selectDataByPageIndex: function (index) {
-
+            // TODO 2017年7月23日23:27:25
             },
             // 查找单行数据
             // getRowData: function (index) {
