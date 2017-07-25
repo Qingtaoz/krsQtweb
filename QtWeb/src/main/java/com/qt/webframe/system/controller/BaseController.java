@@ -2,6 +2,7 @@ package com.qt.webframe.system.controller;
 
 import com.qt.webframe.system.common.SysParams;
 import com.qt.webframe.system.pojoweb.DTRespAjax;
+import com.qt.webframe.system.pojoweb.LayTableResp;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,5 +42,11 @@ public class BaseController {
         dtRespAjax.setRecordsFiltered(l);
         dtRespAjax.setData(array);
         return dtRespAjax;
+    }
+    public LayTableResp array2LayTableResp(String[][] array,int totalCount){
+        LayTableResp resp = new LayTableResp();
+        resp.setData(array);
+        resp.setTotalDataCount(totalCount);
+        return resp;
     }
 }

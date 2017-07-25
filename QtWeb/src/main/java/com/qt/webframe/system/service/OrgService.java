@@ -2,10 +2,7 @@ package com.qt.webframe.system.service;
 
 import com.qt.webframe.system.common.SysParams;
 import com.qt.webframe.system.dao.*;
-import com.qt.webframe.system.pojo.Department;
-import com.qt.webframe.system.pojo.R_dept_user;
-import com.qt.webframe.system.pojo.R_user_role;
-import com.qt.webframe.system.pojo.User;
+import com.qt.webframe.system.pojo.*;
 import com.qt.webframe.system.utils.IdGenerator;
 import com.qt.webframe.system.utils.StringUtil;
 import org.springframework.stereotype.Service;
@@ -171,6 +168,23 @@ public class OrgService {
             strings[i][3] = StringUtil.o2String(departments.get(i).getDeptname());
             strings[i][4] = StringUtil.o2String(departments.get(i).getDeptmanageruname());
             strings[i][5] = StringUtil.dateTime2DateString(departments.get(i).getCreatedatetime());
+        }
+        return strings;
+    }
+
+//    查找组织层角色
+    public String[][] getOrgRoleArray(int start, int length) {
+
+        String[][] strings;
+        Map<String,Object> map = new HashMap();
+        List<Role> roles = roleMapper.selectOrgRoles();
+        int size = roles.size();
+        strings = new String[size][];
+        for(int i=0;i<size;i++){
+            strings[i][0] = StringUtil.o2String(roles.get(i).getRolelevel());
+            strings[i][0] = StringUtil.o2String(roles.get(i).getRoleno());
+            strings[i][0] = StringUtil.o2String(roles.get(i).getRolename());
+            strings[i][0] = StringUtil.dateTime2DateString(roles.get(i).getCreatedatetime());
         }
         return strings;
     }

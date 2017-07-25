@@ -1,7 +1,10 @@
 package com.qt.webframe.system.dao;
 
+import com.qt.webframe.system.pojo.R_user_role;
 import com.qt.webframe.system.pojo.Role;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface RoleMapper {
@@ -53,10 +56,7 @@ public interface RoleMapper {
      */
     int updateByPrimaryKey(Role record);
 
-    /**
-     * 根据角色名称查找角色id
-     * @param roleName
-     * @return
-     */
-    Role selectRoleIdByName(String roleName);
+    R_user_role selectRoleIdByName(String roleOrgManager);
+
+    List<Role> selectOrgRoles();
 }

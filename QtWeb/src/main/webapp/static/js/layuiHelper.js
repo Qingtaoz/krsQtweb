@@ -110,24 +110,34 @@ var layuiHelper = {
             // 删除方法
             delete: "",
             // 是否开启服务器模式
-            serverMode:false,
+            serverMode: false,
             // 服务器模式数据请求ajax
-            ajax:{
-                url:"",
-                contentType:"",
-                context:"",
-                data:"",
-                dataType:"",
-                success:function (data,status) {
-
-                },
-                error:function (request,status,errorThrow) {
-
-                },
-                type:"POST"
+            ajax: {
+                url: "",
+                data: "",
+                type: "POST"
             },
-            // 数据
+            ajaxInit: function () {
+                if (this.serverMode) {
+                    $.ajax({
+                        url: this.ajax.url,
+                        type: "GET",
+                        data: this.ajax.data,
+                        dataType: "",
+                        contentType: "",
+                        success: function (data, status) {
+                            this.allData = data;
+                        },
+                        error: function (data, status) {
+
+                        }
+                    });
+                }
+            },
+            // 单页数据
             data: [],
+            // 所有ajax请求数据
+            allData: [],
             // 分页索引
             pageIndex: 1,
             // 分页每页数据条数
@@ -136,7 +146,15 @@ var layuiHelper = {
             dataCount: 0,
             // 查询单页数据方法
             selectDataByPageIndex: function (index) {
-            // TODO 2017年7月23日23:27:25
+                if (dataCount > 0 && index != pageIndex) {
+                    this.data = [];
+                    var pageSize = this.pageSize;
+                    for (var i = (index - 1) * pageSize; i < (index) * pageSize; i++) {
+                        if (i < dataCount) {
+                            this.data.append(this.allData[i]);
+                        }
+                    }
+                }
             },
             // 查找单行数据
             // getRowData: function (index) {
@@ -192,14 +210,14 @@ var layuiHelper = {
                 }
                 if (this.edit != "" || this.delete != "") {
                     var optWidth = 30;
-                    if(this.edit!=""){
-                        optWidth+=25;
+                    if (this.edit != "") {
+                        optWidth += 25;
                     }
-                    if(this.delete!=""){
-                        optWidth+=25;
+                    if (this.delete != "") {
+                        optWidth += 25;
                     }
                     width += optWidth;
-                    colGroupHtml += "<col width='"+optWidth+"'>";
+                    colGroupHtml += "<col width='" + optWidth + "'>";
                     theadHtml += "<th>操作</th>";
                 }
                 var tbodyHtml = "";
@@ -308,7 +326,7 @@ var layuiHelper = {
                         curr: pageIndex,
                         pages: pageSize,
                         groups: 5,
-                        skip:true,
+                        skip: true,
                         jump: function (obj, first) {
                             if (!first) {
                                 pageSelect(obj.curr);

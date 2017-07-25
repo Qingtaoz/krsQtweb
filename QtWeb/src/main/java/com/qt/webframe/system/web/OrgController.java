@@ -7,6 +7,7 @@ import com.qt.webframe.system.controller.BaseController;
 import com.qt.webframe.system.pojo.Department;
 import com.qt.webframe.system.pojo.User;
 import com.qt.webframe.system.pojoweb.DTRespAjax;
+import com.qt.webframe.system.pojoweb.LayTableResp;
 import com.qt.webframe.system.response.JumpResponse;
 import com.qt.webframe.system.service.OrgService;
 import org.springframework.stereotype.Controller;
@@ -180,5 +181,17 @@ public class OrgController extends BaseController {
         response.setMsg(RET_MSG_ADDDEPT_200);
         response.setJumpUrl("/status_success.html");
         return response;
+    }
+
+
+//    查询组织角色列表
+    @RequestMapping(value = "/role/checkorgroleslist", method = {RequestMethod.GET}, produces = "application/json")
+    @Authentication(value = "ORG_ROLE_CHECKORGROLELIST")
+    @ResponseBody
+    public LayTableResp getOrgRoleList(HttpServletRequest request,
+                                       @RequestParam("start") int start,
+                                       @RequestParam("length") int length) {
+        String[][] array = orgService.getOrgRoleArray(start,length);
+        return array2LayTableResp(array,array.length);
     }
 }
