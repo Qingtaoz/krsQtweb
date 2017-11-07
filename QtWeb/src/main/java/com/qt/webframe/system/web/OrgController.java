@@ -188,9 +188,9 @@ public class OrgController extends BaseController {
     @RequestMapping(value = "/role/checkorgroleslist", method = {RequestMethod.GET}, produces = "application/json")
     @Authentication(value = "ORG_ROLE_CHECKORGROLELIST")
     @ResponseBody
-    public LayTableResp getOrgRoleList(HttpServletRequest request,
-                                       @RequestParam("start") int start,
-                                       @RequestParam("length") int length) {
+    public LayTableResp getOrgRoleList(HttpServletRequest request) {
+        int start=0;
+        int length=100;
         String[][] array = orgService.getOrgRoleArray(start,length);
         return array2LayTableResp(array,array.length);
     }

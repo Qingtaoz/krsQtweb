@@ -179,12 +179,12 @@ public class OrgService {
         Map<String,Object> map = new HashMap();
         List<Role> roles = roleMapper.selectOrgRoles();
         int size = roles.size();
-        strings = new String[size][];
+        strings = new String[size][4];
         for(int i=0;i<size;i++){
             strings[i][0] = StringUtil.o2String(roles.get(i).getRolelevel());
-            strings[i][0] = StringUtil.o2String(roles.get(i).getRoleno());
-            strings[i][0] = StringUtil.o2String(roles.get(i).getRolename());
-            strings[i][0] = StringUtil.dateTime2DateString(roles.get(i).getCreatedatetime());
+            strings[i][1] = StringUtil.o2String(roles.get(i).getRoleno());
+            strings[i][2] = StringUtil.o2String(roles.get(i).getRolename());
+            strings[i][3] = StringUtil.dateTime2DateString(roles.get(i).getCreatedatetime());
         }
         return strings;
     }

@@ -61,9 +61,10 @@
                 }}
             ];
             table1.ajaxInit();
+            table1.createTable();
         };
         $(function () {
-
+            tableInit();
         });
         if(table1.checkBoxEnable){
             //全选
