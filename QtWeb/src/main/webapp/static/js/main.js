@@ -1,5 +1,5 @@
 layui.use(['layer', 'element', 'util'], function () {
-    var element = layui.element(), layer = layui.layer, $ = layui.jquery, util = layui.util; //导航的hover效果、二级菜单等功能，需要依赖element模块
+    var element = layui.element, layer = layui.layer, $ = layui.jquery, util = layui.util; //导航的hover效果、二级菜单等功能，需要依赖element模块
     var side = $('.my-side');
     var body = $('.my-body');
     var footer = $('.my-footer');

@@ -78,7 +78,7 @@
 <script type="text/javascript" src="/static/js/qt-tool.js"></script>
 <script type="text/javascript">
     layui.use(['form', 'layer'], function () {
-        var $ = layui.jquery, form = layui.form(), layer = layui.layer;
+        var $ = layui.jquery, form = layui.form, layer = layui.layer;
         form.verify({
             'orgName': function (value) {
                 if (!verify.isNotEmpty(value)) {

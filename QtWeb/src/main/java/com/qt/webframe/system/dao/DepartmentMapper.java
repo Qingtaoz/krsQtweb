@@ -61,4 +61,6 @@ public interface DepartmentMapper {
     Department selectByDeptName(String deptName);
 
     List<Department> selectDeptListByStr(Map<String, Object> map, int start, int length);
+
+    List<Department> selectAllDeptList();
 }

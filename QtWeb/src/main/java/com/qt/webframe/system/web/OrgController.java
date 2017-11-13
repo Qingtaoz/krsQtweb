@@ -9,6 +9,7 @@ import com.qt.webframe.system.pojo.User;
 import com.qt.webframe.system.pojoweb.DTRespAjax;
 import com.qt.webframe.system.pojoweb.LayTableResp;
 import com.qt.webframe.system.response.JumpResponse;
+import com.qt.webframe.system.response.TableResponse;
 import com.qt.webframe.system.service.OrgService;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by Slash on 2017/5/18.
@@ -141,6 +143,20 @@ public class OrgController extends BaseController {
         String[][] array = orgService.getDeptArray(order_dir,searchString,start,length);
         return array2DtRespAjax(array,draw,length);
     }
+
+    @RequestMapping(value = "/dept/getdeptlist",method = {RequestMethod.GET},produces = "application/json")
+    @Authentication(value = "ORG_DEPT_CHECKDEPTLIST")
+    @ResponseBody
+    public TableResponse getDeptList(HttpServletRequest request){
+        TableResponse response = new TableResponse();
+        List<Department> lst = orgService.getDeptList();
+        response.setCode("0");
+        response.setMsg("");
+        response.setCount(lst.size());
+        response.setData(lst);
+        return response;
+    }
+
 
     @RequestMapping(value = "/dept/adddept",method = {RequestMethod.POST},produces = "application/json")
     @Authentication(value = "ORG_DEPT_ADDDEPT")

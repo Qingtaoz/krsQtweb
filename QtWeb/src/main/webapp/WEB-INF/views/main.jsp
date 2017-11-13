@@ -127,7 +127,7 @@
 <script type="text/javascript" src="/static/js/main.js"></script>
 <script type="text/javascript">
     layui.use(['element', 'layer'], function () {
-        var $ = layui.jquery, element = layui.element(), layer = layui.layer;
+        var $ = layui.jquery, element = layui.element, layer = layui.layer;
         $(".btn-logout").on("click", function () {
             $.post("/sys/logout", function (json, status) {
                 if (status == "success") {

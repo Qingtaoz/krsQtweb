@@ -55,7 +55,7 @@
 <script type="text/javascript" src="/static/frame/cityselect/city.min.js"></script>
 <script type="text/javascript">
     layui.use(['form', 'layer', 'laydate'], function () {
-        var $ = layui.jquery, form = layui.form(), layer = layui.layer;
+        var $ = layui.jquery, form = layui.form, layer = layui.layer;
         form.verify({
             'productNo': function (value) {
                 if (!verify.isNotEmpty(value)) {

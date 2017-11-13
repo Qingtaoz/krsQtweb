@@ -25,7 +25,7 @@
 <script type="text/javascript" src="/static/js/layuiHelper.js"></script>
 <script type="text/javascript">
     layui.use(['form', 'layer', 'laydate'], function () {
-        var $ = layui.jquery, form = layui.form(), layer = layui.layer, laydate = layui.laydate;
+        var $ = layui.jquery, form = layui.form, layer = layui.layer, laydate = layui.laydate;
         var table1 = layuiHelper.LayTable();
         var Edit = function () {
 

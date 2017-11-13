@@ -118,7 +118,7 @@ To change this template use File | Settings | File Templates.
 <script type="text/javascript" src="/static/frame/layui/layui.js"></script>
 <script type="text/javascript">
     layui.use(['layer','element'], function () {
-        var layer = layui.layer, element = layui.element();
+        var layer = layui.layer, element = layui.element;
 
         //监听折叠
         element.on('collapse(collapse)', function(data){

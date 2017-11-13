@@ -59,7 +59,7 @@
 <script type="text/javascript" src="/static/frame/layui/layui.js"></script>
 <script type="text/javascript">
     layui.use(['form', 'layer'], function () {
-        var $ = layui.jquery, form = layui.form(), layer = layui.layer;
+        var $ = layui.jquery, form = layui.form, layer = layui.layer;
         // 验证
         form.verify({
             username: function (value) {

@@ -219,4 +219,10 @@
     order by ${param1.order} ${param1.dir}
     limit #{param2},#{param3}
   </select>
+  <!--selectAllDeptList-->
+  <select id="selectAllDeptList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_bd_department
+  </select>
 </mapper>

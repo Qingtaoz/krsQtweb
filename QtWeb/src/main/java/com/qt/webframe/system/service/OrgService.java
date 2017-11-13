@@ -176,7 +176,6 @@ public class OrgService {
     public String[][] getOrgRoleArray(int start, int length) {
 
         String[][] strings;
-        Map<String,Object> map = new HashMap();
         List<Role> roles = roleMapper.selectOrgRoles();
         int size = roles.size();
         strings = new String[size][4];
@@ -187,5 +186,14 @@ public class OrgService {
             strings[i][3] = StringUtil.dateTime2DateString(roles.get(i).getCreatedatetime());
         }
         return strings;
+    }
+
+    /**
+     * 获取组织部门列表
+     * @return
+     */
+    public List<Department>  getDeptList() {
+        List<Department> lst = departmentMapper.selectAllDeptList();
+        return  lst;
     }
 }

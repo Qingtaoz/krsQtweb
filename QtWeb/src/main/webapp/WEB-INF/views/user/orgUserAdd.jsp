@@ -106,7 +106,7 @@
 <script type="text/javascript" src="/static/frame/cityselect/city.min.js"></script>
 <script type="text/javascript">
     layui.use(['form', 'layer', 'laydate'], function () {
-        var $ = layui.jquery, form = layui.form(), layer = layui.layer, laydate = layui.laydate;
+        var $ = layui.jquery, form = layui.form, layer = layui.layer, laydate = layui.laydate;
         $(function () {
             $("#province").empty();
             for (var i = 0; i < prolist.ps.length; i++) {
