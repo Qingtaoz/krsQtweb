@@ -1,8 +1,9 @@
-/**
- * Created by Slash on 2017/6/9.
- */
+    /**
+        * @Desc
+        * Created by Slash on 2017/6/9.
+        */
 
-var str = {};
+    var str = {};
 var verify = {};
 var bindKeyEvent = {};
 

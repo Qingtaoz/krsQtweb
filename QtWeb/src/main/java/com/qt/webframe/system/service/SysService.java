@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Description:
  * Created by Slash on 2017/5/18.
  */
 @Service
@@ -43,8 +44,8 @@ public class SysService {
 
     /**
      * 根据token获取用户userid
-     * @param token
-     * @return
+     * @param token 用户token
+     * @return 用户id
      */
     public String getUseridByToken(String token) {
         UToken t = uTokenMapper.selectUserIdByToken(token);

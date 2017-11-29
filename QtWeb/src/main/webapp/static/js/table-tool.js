@@ -1,6 +1,7 @@
 /**
- * Created by Administrator on 2017/2/27 0027.
- */
+    * @Desc
+    * Created by Administrator on 2017/2/27 0027.
+    */
 // 表格选中 checkbox
 $('.dateTable').on('click', 'tbody tr input[type="checkbox"]', function () {
     var obj = $(this).parent().parent();

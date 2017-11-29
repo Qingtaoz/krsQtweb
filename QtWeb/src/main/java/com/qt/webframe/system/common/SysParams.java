@@ -1,6 +1,7 @@
 package com.qt.webframe.system.common;
 
 /**
+ * @Desc
  * Created by Slash on 2017/5/22.
  */
 public class SysParams {

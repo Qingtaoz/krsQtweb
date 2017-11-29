@@ -5,7 +5,7 @@ import com.qt.webframe.system.pojoweb.WebMenu;
 import java.util.List;
 
 /**
- * 用户session类
+ * @Desc 用户session类
  * Created by Slash on 2017/5/22.
  */
 public class UserSession {

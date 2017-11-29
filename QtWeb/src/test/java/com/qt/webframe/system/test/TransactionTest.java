@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 /**
+ * @Desc
  * Created by Slash on 2017/6/28.
  */
 public class TransactionTest extends SpringTestCase {

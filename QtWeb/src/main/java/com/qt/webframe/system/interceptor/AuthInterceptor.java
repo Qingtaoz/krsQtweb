@@ -31,10 +31,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
             //页面请求拦截
             HandlerMethod method = (HandlerMethod) handler;
-            if (method.getBeanType() == PageController.class) {
+            if (PageController.class.equals(method.getBeanType())) {
                 return true;
             }
-
             //没有声明需要权限,或者声明不验证权限
             Authentication authentication = ((HandlerMethod) handler).getMethodAnnotation(Authentication.class);
             if (authentication == null || authentication.validate() == false) {

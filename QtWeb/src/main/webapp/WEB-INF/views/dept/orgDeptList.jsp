@@ -32,7 +32,10 @@
                 {title:'操作', fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
                 ]],
             page:true,
-            url:'/org/dept/getdeptlist'
+            url:'/org/dept/getdeptlist',
+            done:function (resp, curr, count) {
+                var i=0;
+            }
         });
     });
 </script>

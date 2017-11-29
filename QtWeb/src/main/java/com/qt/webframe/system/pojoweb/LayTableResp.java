@@ -1,6 +1,7 @@
 package com.qt.webframe.system.pojoweb;
 
 /**
+ * @Desc
  * Created by Slash on 2017/7/24.
  */
 public class LayTableResp {

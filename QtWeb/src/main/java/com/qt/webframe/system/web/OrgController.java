@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
+ * @Desc
  * Created by Slash on 2017/5/18.
  */
 @Controller
@@ -147,7 +148,7 @@ public class OrgController extends BaseController {
     @RequestMapping(value = "/dept/getdeptlist",method = {RequestMethod.GET},produces = "application/json")
     @Authentication(value = "ORG_DEPT_CHECKDEPTLIST")
     @ResponseBody
-    public TableResponse getDeptList(HttpServletRequest request){
+    public TableResponse getDeptList(HttpServletRequest request,@RequestParam("page") int page,@RequestParam("limit") int limit){
         TableResponse response = new TableResponse();
         List<Department> lst = orgService.getDeptList();
         response.setCode("0");
@@ -162,7 +163,7 @@ public class OrgController extends BaseController {
     @Authentication(value = "ORG_DEPT_ADDDEPT")
     @ResponseBody
     public JumpResponse addDept(HttpServletRequest request, @RequestParam String data){
-        String actionUserid = request.getAttribute(SysParams.ACTION_USERID).toString();
+        String actionUserId = request.getAttribute(SysParams.ACTION_USERID).toString();
         Department department = JSON.parseObject(data, Department.class);
         String msg = validate(department);
         JumpResponse response = new JumpResponse();
@@ -187,7 +188,7 @@ public class OrgController extends BaseController {
             return response;
         }
         try{
-            orgService.addDept(department, actionUserid);
+            orgService.addDept(department, actionUserId);
         }catch (Exception e){
             response.setCode(RET_CODE_500);
             response.setMsg(RET_MSG_ADDDEPT_500+":"+e.getMessage());
@@ -199,8 +200,11 @@ public class OrgController extends BaseController {
         return response;
     }
 
-
-//    查询组织角色列表
+    /**
+     * 查询组织角色列表
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/role/checkorgroleslist", method = {RequestMethod.GET}, produces = "application/json")
     @Authentication(value = "ORG_ROLE_CHECKORGROLELIST")
     @ResponseBody

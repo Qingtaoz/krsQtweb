@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 /**
+ * @Desc
  * Created by Slash on 2017/5/22.
  */
 public class OrgAndManager {

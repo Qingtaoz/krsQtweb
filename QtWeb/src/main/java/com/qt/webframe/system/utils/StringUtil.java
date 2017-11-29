@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
+ * @Desc
  * Created by Slash on 2017/6/8.
  */
 public class StringUtil {
